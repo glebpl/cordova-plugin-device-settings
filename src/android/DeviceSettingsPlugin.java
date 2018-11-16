@@ -45,12 +45,27 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
             String actionKey = args.getString(0);
             Field field = Settings.class.getDeclaredField(actionKey);
             String actionId = (String) field.get(null);
+
+            // Log.d(LOG_TAG, "Got key to find " + actionKey);
+            // Log.d(LOG_TAG, "Found id " + actionId);
+
             Intent i = new Intent(actionId);
             String packageName = cordova.getActivity().getPackageName();
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && actionKey.equals("ACTION_CHANNEL_NOTIFICATION_SETTINGS")) {
-                i.putExtra(Settings.EXTRA_APP_PACKAGE, packageName);
-                i.putExtra(Settings.EXTRA_CHANNEL_ID, args.optString(1));
+            // Log.d(LOG_TAG, "Package name is " + packageName);
+
+            if (actionKey.equals("ACTION_APPLICATION_DETAILS_SETTINGS")) {
+                Uri uri = Uri.fromParts("package", packageName, null);
+                i.setData(uri);
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if(actionKey.equals("ACTION_APP_NOTIFICATION_SETTINGS")) {
+                    i.putExtra(Settings.EXTRA_APP_PACKAGE, packageName);
+                } else if (actionKey.equals("ACTION_CHANNEL_NOTIFICATION_SETTINGS")) {
+                    i.putExtra(Settings.EXTRA_APP_PACKAGE, packageName);
+                    i.putExtra(Settings.EXTRA_CHANNEL_ID, args.optString(1));
+                }
             }
 
             cordova.getActivity().startActivity(i);

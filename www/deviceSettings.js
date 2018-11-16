@@ -11,10 +11,11 @@ var _facade = {
             _noop,
             SERVICE_NAME,
             'startActivity',
-            [key || this.APPLICATION, extra || null]
+            [key || this.APPLICATION_DETAILS, extra || null]
         );
     }
-    , APPLICATION: 'ACTION_APPLICATION_SETTINGS' // >= 1
+    , APPLICATION: 'ACTION_APPLICATION_SETTINGS' // all applications, >= 1
+    , APPLICATION_DETAILS: 'ACTION_APPLICATION_DETAILS_SETTINGS'// >= 9
     , APP_NOTIFICATION: 'ACTION_APP_NOTIFICATION_SETTINGS'// >= 26
     , CHANNEL_NOTIFICATION: 'ACTION_CHANNEL_NOTIFICATION_SETTINGS'// >= 26, requires EXTRA_APP_PACKAGE, EXTRA_CHANNEL_ID
     , LOCATION_SOURCE: 'ACTION_LOCATION_SOURCE_SETTINGS'// >= 1
