@@ -40,7 +40,7 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
     private void start(CallbackContext callbackContext, JSONArray args) {
         String actionKey = args.getString(0);
         try {
-            Field field = Settings.getDeclaredField(actionKey);
+            Field field = Settings.getClass().getDeclaredField(actionKey);
             String actionId = (String) field.get(Settings);
             Intent i = new Intent(actionId);
             String packageName = cordova.getActivity().getPackageName();
@@ -53,7 +53,7 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
             // i.putExtra(Settings.EXTRA_APP_PACKAGE, cordova.getActivity().getPackageName());
             cordova.getActivity().startActivity(i);
         } catch (Exception ex) {
-            Log.e(ex.getMessage());
+            Log.e(LOG_TAG, ex.getMessage());
         }
     }
 }
