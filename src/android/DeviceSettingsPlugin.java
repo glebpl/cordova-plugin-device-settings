@@ -37,6 +37,8 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
 	
 	/**
      * Opens required activity
+     * args[0] - action key, required
+     * args[1] - intent extra, optional
      */
     private void start(CallbackContext callbackContext, JSONArray args) {
         String actionKey = args.getString(0);
