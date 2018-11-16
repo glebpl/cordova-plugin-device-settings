@@ -41,8 +41,8 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
      * args[1] - intent extra, optional
      */
     private void start(CallbackContext callbackContext, JSONArray args) {
-        String actionKey = args.getString(0);
         try {
+            String actionKey = args.getString(0);
             Field field = Settings.class.getDeclaredField(actionKey);
             String actionId = (String) field.get(null);
             Intent i = new Intent(actionId);
@@ -54,6 +54,8 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
             }
 
             cordova.getActivity().startActivity(i);
+        } catch (JSONException ex) {
+            Log.e(LOG_TAG, ex.getMessage());
         } catch (NoSuchFieldException ex) {
             Log.e(LOG_TAG, ex.getMessage());
         } catch (IllegalAccessException ex) {
