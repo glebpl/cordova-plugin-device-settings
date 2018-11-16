@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-device-settings" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <name>Cordova Plugin Device Settings</name>
+
+    <js-module name="deviceSettings" src="www/deviceSettings.js">
+        <clobbers target="cordova.plugins.deviceSettings"/>
+    </js-module>
+
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <feature name="DeviceSettings">
+                <param name="android-package" value="ru.ritm.cordova.device.DeviceSettingsPlugin"/>
+            </feature>
+        </config-file>
+        <source-file src="src/android/DeviceSettingsPlugin.java" target-dir="src/ru/ritm/cordova/device"/>
+    </platform>
+
+</plugin>
