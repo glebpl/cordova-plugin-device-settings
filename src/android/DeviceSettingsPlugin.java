@@ -5,7 +5,8 @@ import android.os.Build;
 import android.provider.Settings;
 import android.util.Log;
 
-import java.lang.Exception;
+import java.lang.IllegalAccessException;
+import java.lang.NoSuchFieldException;
 import java.lang.reflect.Field;
 
 import org.apache.cordova.CallbackContext;
@@ -40,8 +41,8 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
     private void start(CallbackContext callbackContext, JSONArray args) {
         String actionKey = args.getString(0);
         try {
-            Field field = Settings.getClass().getDeclaredField(actionKey);
-            String actionId = (String) field.get(Settings);
+            Field field = Settings.class.getDeclaredField(actionKey);
+            String actionId = (String) field.get(null);
             Intent i = new Intent(actionId);
             String packageName = cordova.getActivity().getPackageName();
 
@@ -50,9 +51,10 @@ public class DeviceSettingsPlugin extends CordovaPlugin  {
                 i.putExtra(Settings.EXTRA_CHANNEL_ID, args.optString(1));
             }
 
-            // i.putExtra(Settings.EXTRA_APP_PACKAGE, cordova.getActivity().getPackageName());
             cordova.getActivity().startActivity(i);
-        } catch (Exception ex) {
+        } catch (NoSuchFieldException ex) {
+            Log.e(LOG_TAG, ex.getMessage());
+        } catch (IllegalAccessException ex) {
             Log.e(LOG_TAG, ex.getMessage());
         }
     }
