@@ -24,7 +24,7 @@
   "platforms": [
     "android"
   ],
-    "engines": [
+  "engines": [
     {
       "name": "cordova-android",
       "version": ">=4.0.0"
@@ -39,5 +39,5 @@
     "platforms": [
       "android"
     ]
-  },
+  }
 }
